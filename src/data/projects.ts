@@ -1,8 +1,3 @@
-export interface Chip {
-  label: string;
-  tone: "b" | "l" | "m";
-}
-
 export interface ProjectLink {
   label: string;
   href: string;

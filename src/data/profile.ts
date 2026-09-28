@@ -15,7 +15,6 @@ export const profile = {
       label: "Scholar",
       href: "https://scholar.google.com/citations?user=ch3SBO4AAAAJ",
     },
-    // TODO: replace with your LinkedIn profile URL
     { label: "LinkedIn", href: "https://www.linkedin.com/in/cherish-puniani" },
   ],
 };
