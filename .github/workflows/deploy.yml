@@ -1,5 +1,5 @@
-# Deploys to GitHub Pages. Does nothing until this repo is pushed to GitHub
-# and Pages is enabled (Settings → Pages → Source: GitHub Actions).
+# Build the Astro site with GitHub Actions. In repository Settings → Pages,
+# set Build and deployment → Source to GitHub Actions (not a branch).
 name: Deploy to GitHub Pages
 
 on:
@@ -17,7 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v3
+      - uses: withastro/action@v6
+        with:
+          node-version: "24"
 
   deploy:
     needs: build

@@ -1,6 +1,6 @@
 # Cherish Puniani — portfolio
 
-An Astro site for research, engineering projects, experience, and study notes. The existing GitHub Pages workflow builds and deploys the static site from `main`.
+An Astro site for research, engineering projects, experience, and study notes. The GitHub Pages workflow builds and deploys the static site from `main`. In the repository’s **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Branch publishing invokes Jekyll against the Astro source files and cannot publish the built site.
 
 ## Work locally
 
