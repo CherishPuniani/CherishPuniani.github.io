@@ -34,14 +34,83 @@ const {
     </script>
   </head>
   <body>
+    <canvas id="fieldc" aria-hidden="true"></canvas>
     <div id="cursor" aria-hidden="true"></div>
     <slot />
   </body>
 </html>
 
+<style>
+  #fieldc {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>
+
 <script>
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+  const isDark = () =>
+    root.dataset.theme === "dark" ||
+    (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
   const cur = document.getElementById("cursor");
+
+  // Particle flow field behind the whole page, parts around the cursor
+  const fc = document.getElementById("fieldc") as HTMLCanvasElement | null;
+  if (fc) {
+    const fx = fc.getContext("2d")!;
+    let fw = 0,
+      fh = 0,
+      mx = -999,
+      my = -999,
+      T = 0;
+    const parts = Array.from({ length: 240 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+    }));
+    const size = () => {
+      fw = fc.width = fc.offsetWidth;
+      fh = fc.height = fc.offsetHeight;
+    };
+    size();
+    addEventListener("resize", size);
+    addEventListener("mousemove", (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+    const flow = () => {
+      fx.fillStyle = isDark() ? "rgba(20,27,35,0.09)" : "rgba(247,246,242,0.09)";
+      fx.fillRect(0, 0, fw, fh);
+      T += 0.004;
+      for (const p of parts) {
+        const px = p.x * fw;
+        const py = p.y * fh;
+        let a =
+          (Math.sin(px * 0.006 + T * 3) + Math.cos(py * 0.007 - T * 2)) *
+          Math.PI;
+        const dx = px - mx;
+        const dy = py - my;
+        if (dx * dx + dy * dy < 8000) a = Math.atan2(dy, dx);
+        p.x = (p.x + Math.cos(a) * 0.0016 + 1) % 1;
+        p.y = (p.y + Math.sin(a) * 0.0022 + 1) % 1;
+        fx.fillStyle =
+          ((px + py) | 0) % 3
+            ? isDark()
+              ? "rgba(145,184,240,0.34)"
+              : "rgba(49,90,145,0.28)"
+            : isDark()
+              ? "rgba(162,175,188,0.28)"
+              : "rgba(117,139,165,0.28)";
+        fx.fillRect(px, py, 2, 2);
+      }
+      if (!reduce) requestAnimationFrame(flow);
+    };
+    flow();
+  }
 
   addEventListener("mousemove", (e) => {
     if (!cur) return;

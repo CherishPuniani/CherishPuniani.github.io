@@ -1,81 +1,30 @@
 ---
 const links = [
-  ["#about", "about"],
-  ["#work", "work"],
-  ["#papers", "papers"],
-  ["#experience", "experience"],
-  ["#blog", "blog"],
+  ["/#about", "About"],
+  ["/#research", "Research"],
+  ["/#work", "Projects"],
+  ["/#experience", "Experience"],
+  ["/#notes", "Notes"],
 ];
 ---
 
-<nav class="topnav">
-  <span class="navlinks">
-    {links.map(([href, label]) => <a href={href}>{label}</a>)}
-  </span>
-  <button id="theme" aria-label="Toggle dark mode">◐</button>
+<nav class="topnav" aria-label="Main navigation">
+  <a class="wordmark" href="/" aria-label="Cherish Puniani, home">CP<span aria-hidden="true">.</span></a>
+  <div class="navlinks">{links.map(([href, label]) => <a href={href}>{label}</a>)}</div>
+  <button id="theme" type="button" aria-label="Toggle dark mode">◐</button>
 </nav>
-
-<style>
-  .topnav {
-    position: sticky;
-    top: 0;
-    z-index: 70;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.65rem 1.4rem;
-    background: color-mix(in srgb, var(--paper) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 2px solid var(--ink);
-    font-family: var(--mono);
-    font-size: 0.74rem;
-  }
-
-  .navlinks {
-    margin-left: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.2rem 0.9rem;
-  }
-
-  .navlinks a {
-    text-decoration: none;
-    font-weight: 700;
-    padding: 0.15rem 0.1rem;
-  }
-
-  .navlinks a:hover,
-  .navlinks a:focus-visible {
-    color: var(--blue);
-  }
-
-  #theme {
-    font: inherit;
-    width: 1.9rem;
-    height: 1.9rem;
-    border-radius: 50%;
-    border: 2px solid var(--ink);
-    background: var(--card);
-    color: var(--ink);
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  @media (max-width: 640px) {
-    .navlinks {
-      gap: 0.2rem 0.6rem;
-    }
-  }
-</style>
 
 <script>
   const root = document.documentElement;
-  const isDark = () =>
-    root.dataset.theme === "dark" ||
-    (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
-  document.getElementById("theme")?.addEventListener("click", () => {
+  const isDark = () => root.dataset.theme === "dark" || (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+  const themeButton = document.getElementById("theme");
+  const updateLabel = () => themeButton?.setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode");
+  updateLabel();
+  themeButton?.addEventListener("click", () => {
     const next = isDark() ? "light" : "dark";
     root.dataset.theme = next;
     localStorage.setItem("theme", next);
+    updateLabel();
   });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateLabel);
 </script>

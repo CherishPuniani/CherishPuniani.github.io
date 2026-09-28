@@ -1,0 +1,13 @@
+---
+import ResearchPage from "../../components/ResearchPage.astro";
+import { research, type ResearchWork } from "../../data/research";
+
+export function getStaticPaths() {
+  return research.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+}
+
+interface Props { work: ResearchWork }
+const { work } = Astro.props;
+---
+
+<ResearchPage {work} />

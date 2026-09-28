@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import TopNav from "../../components/TopNav.astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("notes", ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<"notes"> }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={`${entry.data.title} — Cherish Puniani`} description={entry.data.description}>
+  <TopNav />
+  <main class="wrap article-page">
+    <a class="back-link" href="/notes/">← Notes & Write-ups</a>
+    <header class="page-intro">
+      <p class="eyebrow">{entry.data.kind}</p>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.description}</p>
+      <time datetime={entry.data.publishedAt.toISOString()}>{entry.data.publishedAt.toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}</time>
+    </header>
+    <article class="article-body"><Content /></article>
+  </main>
+  <footer class="fine">© {new Date().getFullYear()} Cherish Puniani</footer>
+</Base>

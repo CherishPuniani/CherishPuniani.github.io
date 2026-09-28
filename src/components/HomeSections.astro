@@ -1,0 +1,59 @@
+---
+import Section from "./Section.astro";
+import ProjectShowcase from "./ProjectShowcase.astro";
+import { research } from "../data/research";
+import { experience } from "../data/experience";
+import { profile } from "../data/profile";
+---
+
+<main class="home-main">
+  <Section id="research" label="Research" aside="ideas, methods, evidence">
+    <div class="research-grid">
+      {research.map((work) => (
+        <a class="research-card tilt" href={`/research/${work.slug}/`}>
+          <div class="card-overline"><span>{work.year} · {work.venue}</span><span aria-hidden="true">↗</span></div>
+          <h3>{work.shortTitle}</h3>
+          <p>{work.summary}</p>
+          <span class="card-bottom">Explore the research <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="work" label="Projects" aside="engineering in practice">
+    <p class="section-intro">Select a project to read the story behind the work.</p>
+    <ProjectShowcase />
+  </Section>
+
+  <Section id="experience" label="Experience" aside="click to expand">
+    <div class="experience-list">
+      {experience.map((job) => (
+        <details class="experience-item">
+          <summary><span class="experience-company">{job.company}</span><span class="role">{job.role}</span><span class="date">{job.dates}</span></summary>
+          <div class="inner"><p>{job.summary}</p></div>
+        </details>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="notes" label="Notes & Write-ups" aside="the learning behind the work">
+    <div class="notes-callout">
+      <div><p class="eyebrow">Notebook · work in progress</p><h3>Ideas worth writing down.</h3><p>Short study notes, experiments, and longer technical explanations will live here as they are ready.</p></div>
+      <a class="text-link" href="/notes/">Visit the notebook <span aria-hidden="true">↗</span></a>
+    </div>
+  </Section>
+
+  <Section id="hi" label="Say hi" aside="inbox always open">
+    <div class="contact-panel">
+      <div><p class="eyebrow">Get in touch</p><h3>Let's talk about the work.</h3><p>Generative models, open source, and research collaborations.</p></div>
+      <div class="contact-actions">
+        <a class="cta" id="cta" href={`mailto:${profile.email}`}>Say hi ↗</a>
+        <div class="linkrow">
+          <a href={`mailto:${profile.email}`}>Email</a>
+          {profile.links.map((link) => <a href={link.href} rel="me noopener">{link.label}</a>)}
+          {profile.resumeUrl && <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer">Résumé</a>}
+        </div>
+      </div>
+    </div>
+  </Section>
+</main>

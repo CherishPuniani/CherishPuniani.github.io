@@ -1,43 +1,22 @@
-# Astro Starter Kit: Minimal
+# Cherish Puniani — portfolio
+
+An Astro site for research, engineering projects, experience, and study notes. The existing GitHub Pages workflow builds and deploys the static site from `main`.
+
+## Work locally
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+For a development server, follow `AGENTS.md` and run `astro dev --background` (then use `astro dev status`, `astro dev logs`, and `astro dev stop`).
 
-## 🚀 Project Structure
+## Update the content
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Research:** Edit `src/data/research.ts`. Each entry powers a homepage card and `/research/<slug>/`. Paper-grounded draft summaries, cropped method figures, and selected tables are included. Add or revise the `contribution` field with a first-person account of your specific work; this removes the work-in-progress notice on that page. Source figures live in `public/research/` and retain their paper attribution in each page caption.
+- **Projects:** Edit `src/data/projects.ts`. Each object becomes a selector pill and one wide detail panel. Add a `links` array only for a public repository or page you want to show.
+- **Experience and profile:** Edit `src/data/experience.ts` and `src/data/profile.ts`. The homepage hero wording lives in `src/components/Hero.astro`.
+- **Résumé:** When you have a public résumé URL, set `resumeUrl` in `src/data/profile.ts`. The link is hidden until then. No résumé PDF is included in this repository.
+- **Notes & Write-ups:** Add Markdown files in `src/content/notes/` using the frontmatter described in `_HOW_TO_ADD_A_NOTE.txt`. Entries marked `draft: true` stay hidden. The index at `/notes/` shows a work-in-progress message until a note is published.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Run `npm run build` after editing. The site uses Astro's static routes, so GitHub Pages needs no server or database.

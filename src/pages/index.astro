@@ -2,113 +2,17 @@
 import Base from "../layouts/Base.astro";
 import TopNav from "../components/TopNav.astro";
 import Hero from "../components/Hero.astro";
-import Section from "../components/Section.astro";
+import HomeSections from "../components/HomeSections.astro";
 import { profile } from "../data/profile";
-import { projects } from "../data/projects";
-import { publications } from "../data/publications";
-import { experience } from "../data/experience";
-import { posts } from "../data/posts";
 ---
 
 <Base>
   <TopNav />
   <Hero />
 
-  <div class="skillband">
-    {profile.skills.map((skill, i) => (
-      <>
-        {i > 0 && <span>✦</span>}
-        <span>{skill}</span>
-      </>
-    ))}
-  </div>
-
-  <Section id="work" label="Work" aside="things I built">
-    <div class="minigrid">
-      {projects.map((project) => (
-        <div class="card tilt">
-          {project.chips.map((chip) => (
-            <span class={`chip ${chip.tone}`}>{chip.label}</span>
-          ))}
-          <h3>
-            {project.href ? <a href={project.href}>{project.title}</a> : project.title}
-          </h3>
-          <p class="date">{project.dates}</p>
-          <p class="body">{project.blurb}</p>
-        </div>
-      ))}
-      <div class="card ghost">// your next project ships here</div>
-    </div>
-  </Section>
-
-  <Section id="papers" label="Papers" aside="peer-reviewed pixels">
-    <div class="minigrid">
-      {publications.map((pub) => (
-        <div class="card tilt">
-          {pub.chips.map((chip) => (
-            <span class={`chip ${chip.tone}`}>{chip.label}</span>
-          ))}
-          <h3><a href={pub.href}>{pub.title}</a></h3>
-          <p class="date">{pub.arxiv}</p>
-          <p class="body">{pub.summary}</p>
-        </div>
-      ))}
-    </div>
-  </Section>
-
-  <Section id="experience" label="Experience" aside="click to expand">
-    {experience.map((job) => (
-      <details>
-        <summary>
-          {job.company} <span class="role">{job.role}</span>
-          <span class="date">{job.dates}</span>
-        </summary>
-        <div class="inner">{job.summary}</div>
-      </details>
-    ))}
-  </Section>
-
-  <Section id="blog" label="Blog" aside="notes & write-ups">
-    {posts.map((post) => (
-      <a class="post" href={post.href ?? "#blog"}>
-        <span class="arrow">→</span>
-        <span class="t">{post.title}</span>
-        <span class="d">{post.date}</span>
-      </a>
-    ))}
-  </Section>
-
-  <Section id="hi" label="Say hi" aside="inbox always open">
-    <div class="box">
-      <a class="cta" id="cta" href={`mailto:${profile.email}`}>Say hi →</a>
-      <p>Generative models, open source, research collaborations.</p>
-      <div class="linkrow">
-        <a href={`mailto:${profile.email}`}>Mail</a>
-        {profile.links.map((l) => <a href={l.href} rel="me noopener">{l.label}</a>)}
-      </div>
-    </div>
-  </Section>
+  <HomeSections />
 
   <footer class="fine">
     © {new Date().getFullYear()} {profile.name} · thanks for scrolling all the way
   </footer>
 </Base>
-
-<style>
-  .skillband {
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    background: var(--blue);
-    color: var(--on-accent);
-    padding: 0.7rem 1.4rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem 1.4rem;
-    justify-content: center;
-    font-family: var(--display);
-    font-weight: 800;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-</style>

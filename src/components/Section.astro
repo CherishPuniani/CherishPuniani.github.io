@@ -1,14 +1,9 @@
 ---
-interface Props {
-  id: string;
-  label: string;
-  aside: string;
-}
-
+interface Props { id: string; label: string; aside?: string }
 const { id, label, aside } = Astro.props;
 ---
 
-<section {id} class="wrap reveal">
-  <h2>{label}<span>{aside}</span></h2>
+<section {id} class="wrap reveal content-section" aria-labelledby={`${id}-heading`}>
+  <div class="section-heading"><h2 id={`${id}-heading`}>{label}</h2>{aside && <p>{aside}</p>}</div>
   <slot />
 </section>

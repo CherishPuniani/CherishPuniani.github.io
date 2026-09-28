@@ -1,0 +1,54 @@
+---
+import { projects } from "../data/projects";
+---
+
+<div class="project-showcase" id="project-showcase">
+  <div class="project-pills" role="group" aria-label="Select a project">
+    {projects.map((project) => (
+      <button type="button" class="project-pill" data-project-trigger={project.id} aria-controls={`project-panel-${project.id}`} aria-expanded="false">
+        <span>{project.title}</span><span class="pill-arrow" aria-hidden="true">↗</span>
+      </button>
+    ))}
+  </div>
+  <div class="project-panels">
+    {projects.map((project) => (
+      <article class="project-panel" id={`project-panel-${project.id}`} hidden>
+        <div class="panel-topline"><span class="eyebrow">{project.eyebrow}</span>{project.status === "in-progress" && <span class="status-pill">In progress</span>}</div>
+        <h3>{project.title}</h3>
+        <p class="panel-meta">{project.meta}</p>
+        <p class="panel-lede">{project.summary}</p>
+        <div class="panel-copy">{project.details.map((paragraph) => <p>{paragraph}</p>)}</div>
+        {Boolean(project.links?.length) && <div class="panel-links">{project.links?.map((link) => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>}
+      </article>
+    ))}
+  </div>
+</div>
+
+<script>
+  const showcase = document.getElementById("project-showcase");
+  if (showcase) {
+    const triggers = Array.from(showcase.querySelectorAll<HTMLButtonElement>("[data-project-trigger]"));
+    const panels = Array.from(showcase.querySelectorAll<HTMLElement>(".project-panel"));
+    let active: string | null = null;
+    const show = (id: string | null) => {
+      active = id;
+      for (const trigger of triggers) {
+        const selected = trigger.dataset.projectTrigger === id;
+        trigger.setAttribute("aria-expanded", String(selected));
+        trigger.classList.toggle("is-active", selected);
+      }
+      for (const panel of panels) panel.hidden = panel.id !== `project-panel-${id}`;
+    };
+    triggers.forEach((trigger) => trigger.addEventListener("click", () => {
+      const id = trigger.dataset.projectTrigger ?? null;
+      show(active === id ? null : id);
+    }));
+    showcase.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && active) {
+        const trigger = triggers.find((item) => item.dataset.projectTrigger === active);
+        show(null);
+        trigger?.focus();
+      }
+    });
+  }
+</script>

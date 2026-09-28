@@ -1,0 +1,14 @@
+Add a Markdown file here when a real note or write-up is ready.
+
+Required frontmatter:
+---
+title: "A descriptive title"
+description: "One sentence for cards and search results."
+publishedAt: 2026-09-28
+kind: note # or write-up
+tags: ["diffusion", "inference"]
+draft: false
+---
+
+Write the article body below the frontmatter. Set draft: true to keep an
+unfinished article off the public site. The filename becomes its URL slug.

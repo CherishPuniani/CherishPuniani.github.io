@@ -1,0 +1,33 @@
+---
+import Base from "../../layouts/Base.astro";
+import TopNav from "../../components/TopNav.astro";
+import { getCollection } from "astro:content";
+
+const notes = (await getCollection("notes", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<Base title="Notes & Write-ups — Cherish Puniani" description="Research notes, experiments, and technical write-ups by Cherish Puniani.">
+  <TopNav />
+  <main class="wrap notes-page">
+    <a class="back-link" href="/">← Home</a>
+    <header class="page-intro">
+      <p class="eyebrow">Notebook</p>
+      <h1>Notes & Write-ups</h1>
+      <p>Working notes, experiments, and longer explanations as they become ready to share.</p>
+    </header>
+    {notes.length ? (
+      <div class="note-list">
+        {notes.map((entry) => (
+          <a class="note-item" href={`/notes/${entry.id}/`}>
+            <div><span class="eyebrow">{entry.data.kind}</span><h2>{entry.data.title}</h2><p>{entry.data.description}</p></div>
+            <time datetime={entry.data.publishedAt.toISOString()}>{entry.data.publishedAt.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" })}</time>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state"><p class="eyebrow">Work in progress</p><h2>The first note is on its way.</h2><p>This space is ready for short study notes and deeper technical write-ups.</p></div>
+    )}
+  </main>
+  <footer class="fine">© {new Date().getFullYear()} Cherish Puniani</footer>
+</Base>

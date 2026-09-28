@@ -1,0 +1,116 @@
+---
+import Base from "../layouts/Base.astro";
+import TopNav from "./TopNav.astro";
+import type { ResearchWork } from "../data/research";
+
+interface Props { work: ResearchWork }
+const { work } = Astro.props;
+const citation = `${work.authors.join(", ")}. ${work.title}. ${work.venue}, ${work.year}. arXiv:${work.arxivId}.`;
+---
+
+<Base title={`${work.shortTitle} — Cherish Puniani`} description={work.summary}>
+  <TopNav />
+  <main class="research-page wrap">
+    <a class="back-link" href="/#research">← All research</a>
+    <header class="research-heading">
+      <p class="eyebrow">Research · {work.venue}</p>
+      <h1>{work.title}</h1>
+      <p class="research-authors">
+        {work.authors.map((author, index) => (
+          <><span class={author === "Cherish Puniani" ? "self" : undefined}>{author}</span>{index < work.authors.length - 1 ? ", " : ""}</>
+        ))}
+      </p>
+      <p class="research-summary">{work.summary}</p>
+      <div class="action-row">
+        <a class="button button-primary" href={work.paperUrl} target="_blank" rel="noopener noreferrer">Read paper ↗</a>
+        {work.codeUrl && <a class="button button-secondary" href={work.codeUrl} target="_blank" rel="noopener noreferrer">View code ↗</a>}
+      </div>
+    </header>
+
+    {!work.figure && <div class="research-figure-placeholder" aria-label="Research figure in preparation"><span class="eyebrow">Figure in preparation</span><span class="figure-mark" aria-hidden="true">◌</span></div>}
+
+    {work.figure && (
+      <figure class="research-figure">
+        <a class="figure-link" href={work.figure.src} target="_blank" rel="noopener noreferrer" aria-label="Open figure at full size"><img src={work.figure.src} alt={work.figure.alt} loading="lazy" /></a>
+        {work.figure.caption && <figcaption>{work.figure.caption} <a href={work.paperUrl} target="_blank" rel="noopener noreferrer">View paper ↗</a> <a href={work.figure.src} target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption>}
+      </figure>
+    )}
+
+    {!work.contribution?.length && (
+      <section class="research-wip" aria-labelledby="wip-heading">
+        <p class="eyebrow">My contribution · in progress</p>
+        <h2 id="wip-heading">My part in this work</h2>
+        <p>I'm preparing a first-person account of my specific contribution to this collaborative work. The paper summary below is a draft based on the published paper.</p>
+      </section>
+    )}
+
+    {work.highlights?.length && (
+      <section class="research-section" aria-labelledby="highlights-heading">
+        <p class="eyebrow">Highlights</p>
+        <h2 id="highlights-heading">At a glance</h2>
+        <ul class="highlights">{work.highlights.map((item) => <li>{item}</li>)}</ul>
+      </section>
+    )}
+    {work.abstract?.length && (
+      <section class="research-section research-panel" aria-labelledby="abstract-heading">
+        <p class="eyebrow">Abstract</p>
+        <h2 id="abstract-heading">The problem and idea</h2>
+        {work.abstract.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    )}
+    {work.contribution?.length && (
+      <section class="research-section" aria-labelledby="contribution-heading">
+        <p class="eyebrow">My contribution</p>
+        <h2 id="contribution-heading">What I worked on</h2>
+        {work.contribution.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    )}
+    {work.method?.length && (
+      <section class="research-section" aria-labelledby="method-heading">
+        <p class="eyebrow">Method</p>
+        <h2 id="method-heading">How it works</h2>
+        {work.method.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    )}
+    {work.results?.length && (
+      <section class="research-section" aria-labelledby="results-heading">
+        <p class="eyebrow">Results</p>
+        <h2 id="results-heading">What we found</h2>
+        {work.results.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    )}
+
+    {Boolean(work.tables?.length) && (
+      <section class="research-section results-tables" aria-labelledby="tables-heading">
+        <p class="eyebrow">Evidence</p>
+        <h2 id="tables-heading">Selected results</h2>
+        {work.tables?.map((table) => (
+          <div class="result-table-block">
+            <div class="table-scroll" tabindex="0" role="region" aria-label={table.title}>
+              <table>
+                <caption>{table.title}</caption>
+                <thead><tr>{table.columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+                <tbody>{table.rows.map((row, index) => (
+                  <tr class={table.highlightRows?.includes(index) ? "highlight" : undefined}>
+                    {row.map((cell, cellIndex) => cellIndex === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>)}
+                  </tr>
+                ))}</tbody>
+              </table>
+            </div>
+            <p class="table-hint">Swipe across the table to see every column →</p>
+            <p class="table-source">Source: <a href={work.paperUrl} target="_blank" rel="noopener noreferrer">{table.source} of the paper ↗</a></p>
+            {table.note && <p class="table-note">{table.note}</p>}
+          </div>
+        ))}
+      </section>
+    )}
+
+    <section class="research-section citation" aria-labelledby="citation-heading">
+      <p class="eyebrow">Citation</p>
+      <h2 id="citation-heading">Reference</h2>
+      <p>{citation}</p>
+      <a href={work.paperUrl} target="_blank" rel="noopener noreferrer">arXiv:{work.arxivId} ↗</a>
+    </section>
+  </main>
+  <footer class="fine">© {new Date().getFullYear()} Cherish Puniani</footer>
+</Base>

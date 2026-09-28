@@ -7,24 +7,27 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
+    company: "World Wide Technology",
+    role: "Data Science Intern",
+    dates: "May – Jul 2026",
+    summary: "Built a zero-shot component detection system for engineering drawings using deep visual encoders, and a training-free vector-to-text approach for recognizing CAD strokes. The latter achieved 90.6% character recovery in the internship evaluation.",
+  },
+  {
     company: "Coursetexts",
-    role: "ML Engineer",
+    role: "Machine Learning Engineer",
     dates: "Jun 2025 – May 2026",
-    summary:
-      "Layout-aware PDF extraction with Qwen-VL and DeepSeek OCR; an end-to-end multimodal pipeline (PyMuPDF, YOLOv10, perceptual hashing) with multi-LLM orchestration at 90% validation accuracy — Dockerized on Render with GCS and Modal for serverless GPU inference.",
+    summary: "Designed a layout-aware document extraction pipeline using Qwen-VL, DeepSeek OCR, and YOLOv10 segmentation, reaching 90% validation accuracy. Built a low-latency visual retrieval pipeline for document deduplication with image embeddings, pHash, and FAISS.",
   },
   {
     company: "Greenifyindia",
     role: "ML Engineer",
     dates: "May – Jul 2025",
-    summary:
-      "Geospatial land-use segmentation from raw geotagged imagery (mIoU 0.55 on LoveDA); hex-grid sampling and rebalancing layers exporting GPS coordinates for autonomous sowing.",
+    summary: "Worked on geospatial land-use segmentation from geotagged imagery and hex-grid sampling for autonomous sowing.",
   },
   {
-    company: "Data Science Group, IITR",
+    company: "Data Science Group, IIT Roorkee",
     role: "Joint Secretary",
-    dates: "Feb 2024 – now",
-    summary:
-      "Leading research groups and organising lectures, workshops, and hackathons across ML, DL, and RL — bridging research and industry.",
+    dates: "2024 – present",
+    summary: "Lead ML research working groups and organize lectures, reading groups, workshops, and hackathons. Mentored students during BYOP 2025 and helped organize Beginner’s Hypothesis 2025.",
   },
 ];
