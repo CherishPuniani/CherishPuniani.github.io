@@ -3,11 +3,10 @@ export const profile = {
   role: "Machine learning engineer & researcher",
   location: "IIT Roorkee · 29.85°N 77.89°E",
   email: "cherish_p@me.iitr.ac.in",
-  // Add your public résumé URL here when you are ready to share it.
-  resumeUrl: undefined as string | undefined,
+  cvUrl: "https://drive.google.com/file/d/1mEHCDltCcss-s7I8k6t5OA4fxN89PbvB/view?usp=sharing",
   about: [
-    "I'm an undergraduate at IIT Roorkee — mechanical engineering with a minor in data science & AI — working on computer vision and generative models. Lately that means diffusion distillation, subject-driven image generation, and multimodal document understanding.",
-    "Previously a data science intern at World Wide Technology and a machine learning engineer at Coursetexts. I also serve as Joint Secretary of the Data Science Group at IIT Roorkee.",
+    "I'm an undergraduate at IIT Roorkee,a pseudo mechanical engineer(yes I stole this term from someone) working on computer vision, generative models and building effecient AI systems but tbh anything and everything about ML excites me.",
+    "You'll see my work when you scroll down so a little about me before that, I am a marvel buff, I hit peak productivity only after there is enough caffeine in my system, I love to travel and exploring new places and how can I forget F1!",
   ],
   links: [
     { label: "GitHub", href: "https://github.com/CherishPuniani" },

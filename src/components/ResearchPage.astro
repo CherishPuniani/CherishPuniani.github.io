@@ -36,13 +36,13 @@ const citation = `${work.authors.join(", ")}. ${work.title}. ${work.venue}, ${wo
       </figure>
     )}
 
-    {!work.contribution?.length && (
+    <!-- {!work.contribution?.length && (
       <section class="research-wip" aria-labelledby="wip-heading">
         <p class="eyebrow">My contribution · in progress</p>
         <h2 id="wip-heading">My part in this work</h2>
         <p>I'm preparing a first-person account of my specific contribution to this collaborative work. The paper summary below is a draft based on the published paper.</p>
       </section>
-    )}
+    )} -->
 
     {work.highlights?.length && (
       <section class="research-section" aria-labelledby="highlights-heading">
@@ -70,6 +70,29 @@ const citation = `${work.authors.join(", ")}. ${work.title}. ${work.venue}, ${wo
         <p class="eyebrow">Method</p>
         <h2 id="method-heading">How it works</h2>
         {work.method.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    )}
+    {Boolean(work.algorithms?.length) && (
+      <section class="research-section" aria-labelledby="algorithms-heading">
+        <p class="eyebrow">Algorithms</p>
+        <h2 id="algorithms-heading">Training procedures</h2>
+        <div class="algorithm-grid">
+          {work.algorithms?.map((algorithm) => (
+            <article class="algorithm-card">
+              <h3>{algorithm.title}</h3>
+              <p>{algorithm.summary}</p>
+              <figure class="research-figure algorithm-figure">
+                <a class="figure-link" href={algorithm.src} target="_blank" rel="noopener noreferrer" aria-label={`Open ${algorithm.title} algorithm at full size`}>
+                  <img src={algorithm.src} alt={algorithm.alt} width={algorithm.width} height={algorithm.height} loading="lazy" decoding="async" />
+                </a>
+                <figcaption>
+                  Source: <a href={`https://arxiv.org/pdf/${work.arxivId}#page=${algorithm.page}`} target="_blank" rel="noopener noreferrer">{algorithm.source} of the paper ↗</a>
+                  <a href={algorithm.src} target="_blank" rel="noopener noreferrer">Open full size ↗</a>
+                </figcaption>
+              </figure>
+            </article>
+          ))}
+        </div>
       </section>
     )}
     {work.results?.length && (

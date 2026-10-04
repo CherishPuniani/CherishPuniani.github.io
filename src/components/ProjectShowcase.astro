@@ -18,6 +18,12 @@ import { projects } from "../data/projects";
         <p class="panel-meta">{project.meta}</p>
         <p class="panel-lede">{project.summary}</p>
         <div class="panel-copy">{project.details.map((paragraph) => <p>{paragraph}</p>)}</div>
+        {project.image && (
+          <figure class="panel-image">
+            <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} loading="lazy" decoding="async" />
+            <figcaption>{project.image.caption}</figcaption>
+          </figure>
+        )}
         {Boolean(project.links?.length) && <div class="panel-links">{project.links?.map((link) => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>}
       </article>
     ))}

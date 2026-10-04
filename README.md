@@ -13,10 +13,10 @@ For a development server, follow `AGENTS.md` and run `astro dev --background` (t
 
 ## Update the content
 
-- **Research:** Edit `src/data/research.ts`. Each entry powers a homepage card and `/research/<slug>/`. Paper-grounded draft summaries, cropped method figures, and selected tables are included. Add or revise the `contribution` field with a first-person account of your specific work; this removes the work-in-progress notice on that page. Source figures live in `public/research/` and retain their paper attribution in each page caption.
+- **Research:** Edit `src/data/research.ts`. Each entry powers a homepage card and `/research/<slug>/`. Paper-grounded summaries, cropped method figures, selected results tables, and B-DENSE training algorithms are included. Add or revise the optional `contribution` field to show a first-person account of your specific work. Source figures and algorithm images live in `public/research/` and retain their paper attribution in each page caption. Keep numerical claims, metric labels, and table/page references consistent with the linked papers.
 - **Projects:** Edit `src/data/projects.ts`. Each object becomes a selector pill and one wide detail panel. Add a `links` array only for a public repository or page you want to show.
 - **Experience and profile:** Edit `src/data/experience.ts` and `src/data/profile.ts`. The homepage hero wording lives in `src/components/Hero.astro`.
-- **Résumé:** When you have a public résumé URL, set `resumeUrl` in `src/data/profile.ts`. The link is hidden until then. No résumé PDF is included in this repository.
+- **CV:** The [CV on Google Drive](https://drive.google.com/file/d/1mEHCDltCcss-s7I8k6t5OA4fxN89PbvB/view?usp=sharing) is configured through `cvUrl` in `src/data/profile.ts`. Both `src/components/Hero.astro` and `src/components/HomeSections.astro` display it immediately after Email, with the label **CV**, opening in a new tab. Update `cvUrl` when the shared file changes, and keep its Drive sharing permissions accessible to visitors. No CV PDF is stored in this repository.
 - **Notes & Write-ups:** Add Markdown files in `src/content/notes/` using the frontmatter described in `_HOW_TO_ADD_A_NOTE.txt`. Entries marked `draft: true` stay hidden. The index at `/notes/` shows a work-in-progress message until a note is published.
 
 Run `npm run build` after editing. The site uses Astro's static routes, so GitHub Pages needs no server or database.

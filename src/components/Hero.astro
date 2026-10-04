@@ -25,6 +25,7 @@ import { profile } from "../data/profile";
         <div class="linkrow">
           {profile.links.map((l) => <a href={l.href} rel="me noopener">{l.label} ↗</a>)}
           <a href={`mailto:${profile.email}`}>Email ↗</a>
+          {profile.cvUrl && <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">CV ↗</a>}
         </div>
       </div>
     </div>
@@ -86,7 +87,7 @@ import { profile } from "../data/profile";
   figure.pfp canvas {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1257 / 841;
     image-rendering: pixelated;
     border: 2px solid var(--ink);
     box-shadow: 6px 6px 0 var(--ink);
@@ -168,18 +169,19 @@ import { profile } from "../data/profile";
   const dcv = document.getElementById("dn") as HTMLCanvasElement | null;
   if (dcv) {
     const dctx = dcv.getContext("2d")!;
-    const DW = 160,
-      DH = 120;
+    // Render at twice the largest display size to keep the portrait sharp.
+    const DW = 640,
+      DH = Math.round(DW * 841 / 1257);
     dcv.width = DW;
     dcv.height = DH;
     let base: ImageData | null = null;
     let t = reduce ? 1 : 0;
     let running = false;
     let replayTimer: ReturnType<typeof setTimeout>;
+    const out = dctx.createImageData(DW, DH);
     const frame = () => {
       if (!base) return;
       running = true;
-      const out = dctx.createImageData(DW, DH);
       for (let i = 0; i < out.data.length; i += 4) {
         const n = Math.random() * 255;
         out.data[i] = base.data[i] * t + n * (1 - t);

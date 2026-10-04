@@ -23,6 +23,16 @@ export interface ResearchWork {
   abstract?: string[];
   contribution?: string[];
   method?: string[];
+  algorithms?: {
+    title: string;
+    summary: string;
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    source: string;
+    page: number;
+  }[];
   results?: string[];
   tables?: ResearchTable[];
 }
@@ -81,6 +91,28 @@ export const research: ResearchWork[] = [
     ],
     method: [
       "A pretrained teacher runs several denoising steps and retains the intermediate outputs. The student shares its main network across multiple output branches, with each branch predicting one corresponding teacher state. Training minimizes a weighted loss across those states. The paper evaluates this branched supervision on CIFAR-10 and ImageNet 64×64 using Fréchet inception distance (FID; lower is better).",
+    ],
+    algorithms: [
+      {
+        title: "Progressive Distillation + B-DENSE",
+        summary: "Each distillation round initializes the student from the teacher. Intermediate DDIM targets supervise the student branches through a weighted reconstruction loss; after convergence, the student becomes the next teacher.",
+        src: "/research/b-dense-pd-algorithm.png",
+        alt: "Algorithm 2: initialize the student from the teacher, sample data and noise, retain intermediate DDIM targets, minimize the weighted sum of branch reconstruction errors, then promote the trained student to teacher and reduce the step count.",
+        width: 800,
+        height: 1032,
+        source: "Algorithm 2, p. 4",
+        page: 4,
+      },
+      {
+        title: "SFD + B-DENSE",
+        summary: "At each sampling interval, one branched student step is matched to the teacher solver's intermediate states. A weighted branch loss updates the student, and the detached endpoint prediction starts the next interval.",
+        src: "/research/b-dense-sfd-algorithm.png",
+        alt: "Algorithm 4: sample a noisy initial state, traverse sampling intervals, predict student branches with Euler, obtain teacher states with an ODE solver, minimize their weighted distance, and detach the endpoint branch for the next interval.",
+        width: 796,
+        height: 716,
+        source: "Algorithm 4, p. 6",
+        page: 6,
+      },
     ],
     results: [
       "In Progressive Distillation on CIFAR-10, FID at 128 evaluations fell from 39.66 to 20.81. With SFD on CIFAR-10, B-DENSE improved FID at two to five evaluations (4.40 versus 4.53 at two). On ImageNet 64×64 it improved at two evaluations (9.57 versus 10.25), but trailed SFD at three to five.",

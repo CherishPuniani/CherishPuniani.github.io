@@ -45,13 +45,13 @@ import { profile } from "../data/profile";
 
   <Section id="hi" label="Say hi" aside="inbox always open">
     <div class="contact-panel">
-      <div><p class="eyebrow">Get in touch</p><h3>Let's talk about the work.</h3><p>Generative models, open source, and research collaborations.</p></div>
+      <div><p class="eyebrow">Get in touch</p><h3>Let's talk about the work.</h3></div>
       <div class="contact-actions">
         <a class="cta" id="cta" href={`mailto:${profile.email}`}>Say hi ↗</a>
         <div class="linkrow">
           <a href={`mailto:${profile.email}`}>Email</a>
+          {profile.cvUrl && <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">CV</a>}
           {profile.links.map((link) => <a href={link.href} rel="me noopener">{link.label}</a>)}
-          {profile.resumeUrl && <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer">Résumé</a>}
         </div>
       </div>
     </div>

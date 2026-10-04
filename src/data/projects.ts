@@ -12,6 +12,7 @@ export interface Project {
   details: string[];
   links?: ProjectLink[];
   status?: "in-progress";
+  image?: { src: string; alt: string; width: number; height: number; caption: string };
 }
 
 export const projects: Project[] = [
@@ -21,10 +22,11 @@ export const projects: Project[] = [
     eyebrow: "ML systems",
     meta: "Inference server · in progress",
     summary: "A minimal inference server exploring the latency and throughput trade-offs of dynamic batching.",
-    details: [
-      "I'm building a Python inference server with asyncio and FastAPI. Its batching engine queues concurrent requests and closes a batch when it reaches a size or timeout threshold.",
-      "The next step is to benchmark throughput and latency against an unbatched baseline across batch settings. Those measurements are in progress, so no performance claim is shown yet.",
-    ],
+    details: ["It is WiP."],
+    // details: [
+    //   "I'm building a Python inference server with asyncio and FastAPI. Its batching engine queues concurrent requests and closes a batch when it reaches a size or timeout threshold.",
+    //   "The next step is to benchmark throughput and latency against an unbatched baseline across batch settings. Those measurements are in progress, so no performance claim is shown yet.",
+    // ],
     status: "in-progress",
   },
   {
@@ -49,6 +51,36 @@ export const projects: Project[] = [
       "Our team combined SDXL Turbo with IP-Adapters and ControlNets to separate identity and pose conditioning for image editing in compute-constrained settings.",
       "I also designed a zero-shot object-grounding pipeline using GroundingDINO and MobileSAM. The project placed fourth at Inter-IIT Tech Meet 14.0.",
     ],
+  },
+  {
+    id: "entitymatch",
+    title: "EntityMatch",
+    eyebrow: "Applied machine learning",
+    meta: "Business entity resolution · Competition project",
+    summary: "Linking business records across three sources using multilingual names, addresses, and country information.",
+    details: [
+      "The pipeline combines multilingual text normalization and Indic transliteration with compound blocking keys, learned candidate retrieval, and Qwen3 embeddings to narrow the search space.",
+      "A two-stage LightGBM matcher combines lexical and address evidence with gated Qwen3 and XLM-R cross-encoder scores. Country-specific corrections and match-set decoding refine the final links, with evaluation using precision-focused macro F0.5.",
+    ],
+    links: [{ label: "Repository", href: "https://github.com/CherishPuniani/EntityMatch" }],
+  },
+  {
+    id: "humanoid-teb",
+    title: "Humanoid Robot",
+    eyebrow: "Robotics",
+    meta: "Mechanical design · SolidWorks · 2025",
+    summary: "A full-body humanoid robot CAD assembly with articulated limbs, robotic hands, and joint mechanisms.",
+    details: [
+      "The design brings together the head, torso, arms, and lower body in a complete SolidWorks assembly, with separate parts and subassemblies for the hands and limb connections.",
+      "This was an attempt to build a humanoid robot for one of my courses, Pls forgive if the humanoid does not look like a human, I was learning through practice.",
+    ],
+    image: {
+      src: "/projects/humanoid-complete.png",
+      alt: "Front view of the complete humanoid robot assembly in SolidWorks, showing its head, torso, articulated arms, hands, and legs.",
+      width: 2263,
+      height: 1365,
+      caption: "Complete humanoid robot assembly in SolidWorks.",
+    },
   },
   {
     id: "seedsense",
