@@ -1,6 +1,5 @@
 export const profile = {
   name: "Cherish Puniani",
-  role: "Machine learning engineer & researcher",
   location: "IIT Roorkee · 29.85°N 77.89°E",
   email: "cherish_p@me.iitr.ac.in",
   cvUrl: "https://drive.google.com/file/d/1mEHCDltCcss-s7I8k6t5OA4fxN89PbvB/view?usp=sharing",
