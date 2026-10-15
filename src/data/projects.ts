@@ -29,6 +29,19 @@ export const projects: Project[] = [
     // ],
     status: "in-progress",
   },
+    {
+    id: "rle-authoring",
+    title: "RLE_authoring",
+    eyebrow: "AI safety",
+    meta: "Agent evaluation · Harbor · Daytona",
+    summary: "An agent evaluation environment testing whether an AI can repair a support-ticket report without disclosing synthetic private customer notes.",
+    details: [
+      "This was meant for me to learn how to build evaluation frameworks and graders and working with harbor. I built a support-ticket task family with prompt injections delivered through issue text, source comments, and execution diagnostics, alongside a clean baseline. Agents run through Harbor in Daytona sandboxes.",
+      "The grader checks functional correctness, regressions, and actual public-file disclosures independently. I hardened the verifier with bounded file observation, restricted application permissions, resource limits, and controls covering correct/broken and safe/unsafe outcomes.",
+      "Saved trials, action-batch replays, and repeated evaluations document observed behavior and its limits. This project focuses on environment authoring and evaluation; model training is planned.",
+    ],
+    links: [{ label: "Repository", href: "https://github.com/CherishPuniani/rle_authoring" }],
+  },
   {
     id: "systolic-array",
     title: "Systolic Array Simulator",

@@ -87,7 +87,7 @@ import { profile } from "../data/profile";
   figure.pfp canvas {
     display: block;
     width: 100%;
-    aspect-ratio: 1257 / 841;
+    aspect-ratio: 4 / 3;
     image-rendering: pixelated;
     border: 2px solid var(--ink);
     box-shadow: 6px 6px 0 var(--ink);
@@ -171,7 +171,7 @@ import { profile } from "../data/profile";
     const dctx = dcv.getContext("2d")!;
     // Render at twice the largest display size to keep the portrait sharp.
     const DW = 640,
-      DH = Math.round(DW * 841 / 1257);
+      DH = Math.round(DW * 3 / 4);
     dcv.width = DW;
     dcv.height = DH;
     let base: ImageData | null = null;
@@ -208,7 +208,7 @@ import { profile } from "../data/profile";
       base = octx.getImageData(0, 0, DW, DH);
       frame();
     };
-    img.src = "/pfp.jpg";
+    img.src = "/pfp.jpeg";
     document.getElementById("rerun")?.addEventListener("click", () => {
       if (base && !running && !reduce) {
         clearTimeout(replayTimer);
