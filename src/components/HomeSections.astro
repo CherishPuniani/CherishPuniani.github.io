@@ -50,7 +50,7 @@ import { profile } from "../data/profile";
         <a class="cta" id="cta" href={`mailto:${profile.email}`}>Say hi ↗</a>
         <div class="linkrow">
           <a href={`mailto:${profile.email}`}>Email</a>
-          {profile.cvUrl && <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">CV</a>}
+          {/* profile.cvUrl && <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">CV</a> */}
           {profile.links.map((link) => <a href={link.href} rel="me noopener">{link.label}</a>)}
         </div>
       </div>
